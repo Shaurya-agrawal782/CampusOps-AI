@@ -144,14 +144,14 @@ export default function GrievanceDetail() {
         </div>
         <nav className="sidebar-nav">
           <Link to="/admin" className="sidebar-link"><span className="material-symbols-outlined">grid_view</span>Overview</Link>
-          <Link to="/admin" className="sidebar-link active"><span className="material-symbols-outlined">description</span>Grievance Feed</Link>
+          <Link to="/admin" className="sidebar-link active"><span className="material-symbols-outlined">description</span>Request Feed</Link>
           <Link to="/admin/analytics" className="sidebar-link"><span className="material-symbols-outlined">analytics</span>Analytics</Link>
-          <a href="#" className="sidebar-link"><span className="material-symbols-outlined">alt_route</span>Departmental Routing</a>
+          <a href="#" className="sidebar-link"><span className="material-symbols-outlined">alt_route</span>Campus Unit Routing</a>
           <a href="#" className="sidebar-link"><span className="material-symbols-outlined">settings</span>Settings</a>
         </nav>
         <div className="sidebar-footer">
           <Link to="/grievance/new" className="btn btn-secondary" style={{ width: '100%', marginBottom: '0.5rem' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '1.125rem' }}>add</span>New Grievance
+            <span className="material-symbols-outlined" style={{ fontSize: '1.125rem' }}>add</span>New Request
           </Link>
           <a href="#" className="sidebar-link"><span className="material-symbols-outlined">help_outline</span>Support</a>
         </div>
@@ -177,7 +177,7 @@ export default function GrievanceDetail() {
             </div>
             <button className="btn btn-outline btn-sm">
               <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>mail</span>
-              Contact Citizen
+              Contact Student
             </button>
           </div>
 
@@ -197,7 +197,7 @@ export default function GrievanceDetail() {
               <div className="card" style={{ padding: '2rem' }}>
                 <p className="form-label" style={{ marginBottom: '1rem', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '1.125rem' }}>description</span>
-                  Citizen Description 
+                  Student Description
                   {grievance.aiClassification?.detectedLanguage && grievance.aiClassification.detectedLanguage.toLowerCase() !== 'english' && (
                     <span className="badge badge-ai" style={{ fontSize: '0.625rem', padding: '2px 6px' }}>Translated from {grievance.aiClassification.detectedLanguage}</span>
                   )}
@@ -313,7 +313,7 @@ export default function GrievanceDetail() {
                         disabled={updating || (grievance.status !== 'resolved' && grievance.status !== 'closed')}
                         className="btn btn-sm btn-outline"
                       >
-                        Reopen Complaint
+                        Reopen Ticket
                       </button>
                     </>
                   )}
@@ -345,7 +345,7 @@ export default function GrievanceDetail() {
                 {/* AI Summary */}
                 <div style={{ marginBottom: '1.5rem' }}>
                   <p style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--primary)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Sparkles size={14} /> AI Official Summary
+                    <Sparkles size={14} /> AI Summary
                   </p>
                   <div style={{ padding: '1rem', background: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', fontSize: '0.875rem', lineHeight: 1.6, color: 'var(--on-surface-variant)', borderLeft: '3px solid var(--ai-teal)' }}>
                     {grievance.aiClassification?.summary || 'No AI summary available.'}
@@ -355,27 +355,37 @@ export default function GrievanceDetail() {
                 {/* AI Metadata Stats */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1.5rem' }}>
                   <div style={{ padding: '0.75rem', background: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(197,197,211,0.1)' }}>
+                    <p style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.25rem' }}>Issue Type</p>
+                    <p style={{ fontSize: '0.8125rem', fontWeight: 600 }}>{grievance.aiClassification?.issueType || 'Issue'}</p>
+                  </div>
+                  <div style={{ padding: '0.75rem', background: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(197,197,211,0.1)' }}>
                     <p style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.25rem' }}>Sentiment</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <span style={{ fontSize: '0.8125rem', fontWeight: 600, textTransform: 'capitalize' }}>{grievance.aiClassification?.sentiment || 'Neutral'}</span>
+                      <span style={{ fontSize: '0.8125rem', fontWeight: 600, textTransform: 'capitalize' }}>{grievance.aiClassification?.sentiment || 'Calm'}</span>
                       {grievance.aiClassification?.isUrgent && <AlertCircle size={14} color="var(--error)" />}
                     </div>
                   </div>
                   <div style={{ padding: '0.75rem', background: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(197,197,211,0.1)' }}>
-                    <p style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.25rem' }}>Input Language</p>
+                    <p style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.25rem' }}>Language</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                       <Globe size={14} color="var(--primary)" />
                       <p style={{ fontSize: '0.8125rem', fontWeight: 600 }}>{grievance.aiClassification?.detectedLanguage || 'English'}</p>
                     </div>
                   </div>
+                  <div style={{ padding: '0.75rem', background: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(197,197,211,0.1)' }}>
+                    <p style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.25rem' }}>Admin Review</p>
+                    <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: grievance.aiClassification?.requiresAdminReview ? 'var(--error)' : 'var(--secondary)' }}>
+                      {grievance.aiClassification?.requiresAdminReview ? 'Required' : 'Not Required'}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Recommended Routing */}
+                {/* Routing Confidence */}
                 <div style={{ marginBottom: '1.5rem' }}>
-                  <p style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--primary)', marginBottom: '0.75rem' }}>Confidence Analysis</p>
+                  <p style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--primary)', marginBottom: '0.75rem' }}>Routing Confidence</p>
                   <div style={{ padding: '1rem', background: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(197,197,211,0.1)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                      <span style={{ fontWeight: 700 }}>{grievance.aiClassification?.suggestedDepartment || grievance.department}</span>
+                      <span style={{ fontWeight: 700 }}>{grievance.aiClassification?.campusUnit || grievance.aiClassification?.suggestedDepartment || grievance.department}</span>
                       <span style={{
                         fontSize: '0.75rem', fontWeight: 700, color: 'var(--secondary)',
                         background: 'var(--secondary-container)', padding: '0.125rem 0.5rem', borderRadius: 'var(--radius-full)',
@@ -393,15 +403,31 @@ export default function GrievanceDetail() {
                       />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--on-surface-variant)' }}>
-                      <span>Sub-category: {grievance.category}</span>
+                      <span>Category: {grievance.category}</span>
                       <span>Priority: <span style={{ fontWeight: 700, textTransform: 'capitalize' }}>{grievance.priority}</span></span>
                     </div>
                   </div>
                 </div>
 
+                {/* Suggested Action */}
+                {grievance.aiClassification?.suggestedAction && (
+                  <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(14,165,164,0.05)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(14,165,164,0.2)' }}>
+                    <p style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--primary)', marginBottom: '0.5rem' }}>Suggested Action</p>
+                    <p style={{ fontSize: '0.875rem', lineHeight: 1.5 }}>{grievance.aiClassification.suggestedAction}</p>
+                  </div>
+                )}
+
+                {/* Student Message */}
+                {grievance.aiClassification?.studentMessage && (
+                  <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'var(--secondary-container)', borderRadius: 'var(--radius-md)' }}>
+                    <p style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--primary)', marginBottom: '0.5rem' }}>Student Message</p>
+                    <p style={{ fontSize: '0.875rem', lineHeight: 1.5, fontStyle: 'italic' }}>{grievance.aiClassification.studentMessage}</p>
+                  </div>
+                )}
+
                 {/* Action Buttons */}
                 <button
-                  onClick={() => handleAssign(grievance.aiClassification?.suggestedDepartment || grievance.department)}
+                  onClick={() => handleAssign(grievance.aiClassification?.campusUnit || grievance.aiClassification?.suggestedDepartment || grievance.department)}
                   className="btn btn-primary"
                   disabled={updating}
                   style={{ width: '100%', marginBottom: '0.75rem' }}
@@ -411,7 +437,7 @@ export default function GrievanceDetail() {
                 </button>
                 <button className="btn btn-outline" style={{ width: '100%' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '1.125rem' }}>swap_horiz</span>
-                  Reassign Department
+                  Reassign Campus Unit
                 </button>
               </div>
 
@@ -428,7 +454,7 @@ export default function GrievanceDetail() {
               {/* Feedback */}
               {grievance.feedback?.rating && (
                 <div className="card-flat" style={{ padding: '1.25rem', borderRadius: 'var(--radius-xl)' }}>
-                  <p style={{ fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>Citizen Feedback</p>
+                  <p style={{ fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>Student Feedback</p>
                   <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '0.5rem' }}>
                     {[1, 2, 3, 4, 5].map(star => (
                       <span key={star} className="material-symbols-outlined filled" style={{

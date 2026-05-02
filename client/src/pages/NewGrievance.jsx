@@ -7,11 +7,21 @@ import { grievanceAPI, aiAPI } from '../services/api';
 import AIAssistant from '../components/AIAssistant';
 
 const categories = [
-  { value: 'Public Infrastructure', icon: 'construction', color: '#283593', bg: '#e8eaf6' },
-  { value: 'Sanitation & Waste', icon: 'delete', color: '#2e7d32', bg: '#e8f5e9' },
-  { value: 'Water Supply', icon: 'water_drop', color: '#1565c0', bg: '#e3f2fd' },
-  { value: 'Electricity', icon: 'bolt', color: '#e65100', bg: '#fff3e0' },
-  { value: 'Public Safety', icon: 'shield', color: '#6a1b9a', bg: '#f3e5f5' },
+  { value: 'Hostel',          icon: 'bed',              color: '#1565c0', bg: '#e3f2fd' },
+  { value: 'Canteen',         icon: 'restaurant',       color: '#2e7d32', bg: '#e8f5e9' },
+  { value: 'Library',         icon: 'local_library',    color: '#6a1b9a', bg: '#f3e5f5' },
+  { value: 'Lab / IT',        icon: 'computer',         color: '#00695c', bg: '#e0f2f1' },
+  { value: 'Classroom',       icon: 'school',           color: '#e65100', bg: '#fff3e0' },
+  { value: 'Transport',       icon: 'directions_bus',   color: '#4e342e', bg: '#efebe9' },
+  { value: 'Exam Cell',       icon: 'edit_document',    color: '#283593', bg: '#e8eaf6' },
+  { value: 'Accounts / Fees', icon: 'payments',         color: '#bf360c', bg: '#fbe9e7' },
+  { value: 'Maintenance',     icon: 'build',            color: '#37474f', bg: '#eceff1' },
+  { value: 'Security',        icon: 'security',         color: '#b71c1c', bg: '#ffebee' },
+  { value: 'Sports',          icon: 'sports_soccer',    color: '#1b5e20', bg: '#f1f8e9' },
+  { value: 'Administration',  icon: 'account_balance',  color: '#1a237e', bg: '#e8eaf6' },
+  { value: 'Medical Room',    icon: 'local_hospital',   color: '#c62828', bg: '#ffebee' },
+  { value: 'Scholarship Cell',icon: 'workspace_premium',color: '#4a148c', bg: '#f3e5f5' },
+  { value: 'Other',           icon: 'help_outline',     color: '#546e7a', bg: '#eceff1' },
 ];
 
 export default function NewGrievance() {
@@ -209,9 +219,9 @@ export default function NewGrievance() {
             <span className="material-symbols-outlined filled" style={{ fontSize: '2.5rem' }}>check_circle</span>
           </div>
         </motion.div>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem' }}>Grievance Submitted!</h1>
+        <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem' }}>Request Submitted!</h1>
         <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1.5rem', fontSize: '1.125rem' }}>
-          Your complaint has been filed and is being processed by our AI system.
+          Your request has been filed and is being processed by our AI system.
         </p>
         <div className="card" style={{ padding: '1.5rem', marginBottom: '2rem', textAlign: 'left' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
@@ -223,7 +233,7 @@ export default function NewGrievance() {
             <span style={{ fontWeight: 600 }}>{success.category}</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-            <span style={{ color: 'var(--on-surface-variant)' }}>Department</span>
+            <span style={{ color: 'var(--on-surface-variant)' }}>Campus Unit</span>
             <span style={{ fontWeight: 600 }}>{success.department}</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -243,9 +253,9 @@ export default function NewGrievance() {
     <div className="container" style={{ padding: '2rem', maxWidth: '1200px' }}>
       {/* Page Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>New Grievance</h1>
+        <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>New Request</h1>
         <p style={{ fontSize: '1.125rem', color: 'var(--on-surface-variant)' }}>
-          Please provide the details of your issue to help us route it to the appropriate department.
+          Please provide the details of your issue to help us route it to the appropriate campus unit.
         </p>
       </motion.div>
 
@@ -299,7 +309,7 @@ export default function NewGrievance() {
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid var(--surface-container)' }}>Incident Details</h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                   <div className="form-group">
-                    <label className="form-label" htmlFor="title">Grievance Title</label>
+                    <label className="form-label" htmlFor="title">Request Title</label>
                     <input id="title" className="form-input" type="text" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} placeholder="Briefly describe the issue" required />
                   </div>
                   <div className="form-group">
@@ -341,7 +351,7 @@ export default function NewGrievance() {
                             <p style={{ fontWeight: 700 }}>Potential Duplicate Detected ({duplicateInfo.similarity}%)</p>
                           </div>
                           <p style={{ marginBottom: '0.75rem', opacity: 0.9 }}>
-                            A similar grievance has already been filed: <strong>"{duplicateInfo.existingGrievance.title}"</strong>. 
+                            A similar request has already been filed: <strong>"{duplicateInfo.existingGrievance.title}"</strong>. 
                             You may want to track the existing issue instead.
                           </p>
                           <div style={{ display: 'flex', gap: '1rem' }}>
@@ -461,7 +471,7 @@ export default function NewGrievance() {
                     <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.875rem' }}>{form.citizenEmail} {form.citizenPhone && `• ${form.citizenPhone}`}</p>
                   </div>
                   <div>
-                    <p className="form-label" style={{ marginBottom: '0.5rem' }}>Grievance Title</p>
+                    <p className="form-label" style={{ marginBottom: '0.5rem' }}>Request Title</p>
                     <p style={{ fontWeight: 600, fontSize: '1.125rem' }}>{form.title}</p>
                   </div>
                   <div>
@@ -513,7 +523,7 @@ export default function NewGrievance() {
             ) : (
               <button onClick={handleSubmit} className="btn btn-primary" disabled={loading}>
                 {loading ? <div className="spinner" style={{ width: '1.25rem', height: '1.25rem', borderWidth: '2px' }} /> : (
-                  <>Submit Grievance <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>send</span></>
+                  <>Submit Request <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>send</span></>
                 )}
               </button>
             )}
@@ -550,28 +560,42 @@ export default function NewGrievance() {
               </div>
             ) : aiClassification ? (
               <div style={{ position: 'relative' }}>
+                {/* Route banner */}
                 <div style={{
                   padding: '1rem', background: 'var(--surface-container-low)',
-                  borderRadius: 'var(--radius-md)', border: '1px solid rgba(197,197,211,0.1)', marginBottom: '1rem',
+                  borderRadius: 'var(--radius-md)', border: '1px solid rgba(197,197,211,0.1)', marginBottom: '0.75rem',
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)' }}>Suggested Route</span>
+                    <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)' }}>Campus Unit</span>
                     <span style={{
                       fontSize: '0.6875rem', fontWeight: 700, color: 'var(--secondary)',
                       background: 'var(--secondary-container)', padding: '0.125rem 0.5rem', borderRadius: 'var(--radius-full)',
                     }}>
-                      {(aiClassification.confidence || aiClassification.classification?.confidence || 0)}% Match
+                      {(aiClassification.confidence || 0)}% Match
                     </span>
                   </div>
-                  <p style={{ fontSize: '1rem', fontWeight: 600 }}>{aiClassification.suggestedDepartment || aiClassification.classification?.suggestedDepartment || 'Analyzing...'}</p>
+                  <p style={{ fontSize: '1rem', fontWeight: 600 }}>{aiClassification.campusUnit || aiClassification.suggestedDepartment || 'Analyzing...'}</p>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1rem' }}>
+                {/* Category + IssueType row */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                  <div style={{ padding: '0.75rem', background: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(197,197,211,0.1)' }}>
+                    <p style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.25rem' }}>Category</p>
+                    <p style={{ fontSize: '0.8125rem', fontWeight: 600 }}>{aiClassification.category || '—'}</p>
+                  </div>
+                  <div style={{ padding: '0.75rem', background: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(197,197,211,0.1)' }}>
+                    <p style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.25rem' }}>Type</p>
+                    <p style={{ fontSize: '0.8125rem', fontWeight: 600 }}>{aiClassification.issueType || 'Issue'}</p>
+                  </div>
+                </div>
+
+                {/* Sentiment + Language row */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '0.75rem' }}>
                   <div style={{ padding: '0.75rem', background: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(197,197,211,0.1)' }}>
                     <p style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.25rem' }}>Sentiment</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <span style={{ fontSize: '0.8125rem', fontWeight: 600, textTransform: 'capitalize' }}>{aiClassification.sentiment || 'Neutral'}</span>
-                      {(aiClassification.isUrgent || aiClassification.priority === 'high') && <AlertCircle size={14} color="var(--error)" />}
+                      <span style={{ fontSize: '0.8125rem', fontWeight: 600, textTransform: 'capitalize' }}>{aiClassification.sentiment || 'Calm'}</span>
+                      {(aiClassification.isUrgent || aiClassification.priority === 'high' || aiClassification.priority === 'critical') && <AlertCircle size={14} color="var(--error)" />}
                     </div>
                   </div>
                   <div style={{ padding: '0.75rem', background: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(197,197,211,0.1)' }}>
@@ -580,48 +604,30 @@ export default function NewGrievance() {
                   </div>
                 </div>
 
-                {/* AI Evidence Verification */}
-                {aiClassification.verification && (
-                  <div style={{ 
-                    marginBottom: '1rem', 
-                    padding: '0.75rem', 
-                    background: aiClassification.verification.status === 'verified' ? 'rgba(14,165,164,0.05)' : 'rgba(239,153,0,0.05)',
-                    borderRadius: 'var(--radius-md)',
-                    border: `1px solid ${aiClassification.verification.status === 'verified' ? 'rgba(14,165,164,0.2)' : 'rgba(239,153,0,0.2)'}`
-                  }}>
-                    <p style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.5rem' }}>Evidence Verification</p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                      <span className="material-symbols-outlined" style={{ fontSize: '1rem', color: aiClassification.verification?.status === 'verified' ? 'var(--ai-teal)' : 'var(--warning)' }}>
-                        {aiClassification.verification?.status === 'verified' ? 'verified' : 'report_problem'}
-                      </span>
-                      <span style={{ fontSize: '0.8125rem', fontWeight: 700 }}>{(aiClassification.verification?.status || 'Unknown').toUpperCase()}</span>
-                    </div>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--on-surface-variant)', lineHeight: 1.4 }}>{aiClassification.verification?.reason}</p>
+                {/* Suggested Action */}
+                {aiClassification.suggestedAction && (
+                  <div style={{ marginBottom: '0.75rem', padding: '0.75rem', background: 'rgba(14,165,164,0.05)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(14,165,164,0.2)' }}>
+                    <p style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.35rem' }}>Suggested Action</p>
+                    <p style={{ fontSize: '0.8125rem', color: 'var(--on-surface)', lineHeight: 1.4 }}>{aiClassification.suggestedAction}</p>
                   </div>
                 )}
 
-                {aiClassification.alternatives?.length > 0 && (
-                  <div style={{ marginBottom: '0.75rem' }}>
-                    <p style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.5rem' }}>Other Possibilities</p>
-                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                      {aiClassification.alternatives.map((alt, i) => (
-                        <span key={i} style={{
-                          padding: '0.25rem 0.75rem', background: 'var(--surface-container)',
-                          borderRadius: 'var(--radius-full)', fontSize: '0.75rem', fontWeight: 500, color: 'var(--on-surface-variant)',
-                          border: '1px solid rgba(197,197,211,0.2)',
-                        }}>{alt.department}</span>
-                      ))}
-                    </div>
+                {/* Student Message */}
+                {aiClassification.studentMessage && (
+                  <div style={{ marginBottom: '0.75rem', padding: '0.75rem', background: 'var(--secondary-container)', borderRadius: 'var(--radius-md)' }}>
+                    <p style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.35rem' }}>Message for You</p>
+                    <p style={{ fontSize: '0.8125rem', color: 'var(--on-surface)', lineHeight: 1.4, fontStyle: 'italic' }}>{aiClassification.studentMessage}</p>
                   </div>
                 )}
+
                 <p style={{ fontSize: '0.75rem', color: 'var(--on-surface-variant)', fontStyle: 'italic', paddingTop: '0.75rem', borderTop: '1px solid var(--surface-container)' }}>
-                  This classification helps speed up routing but will be reviewed by a human agent before final assignment.
+                  AI classification will be reviewed by campus staff before final routing.
                 </p>
               </div>
             ) : (
               <div style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--on-surface-variant)' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: '2rem', opacity: 0.4, display: 'block', marginBottom: '0.5rem' }}>psychology</span>
-                <p style={{ fontSize: '0.8125rem' }}>Start typing your grievance to see AI classification</p>
+                <p style={{ fontSize: '0.8125rem' }}>Start typing your request to see AI classification</p>
               </div>
             )}
           </div>
@@ -647,7 +653,6 @@ export default function NewGrievance() {
           </div>
         </div>
       </div>
-      <AIAssistant context="newGrievance" formContent={form} />
     </div>
   );
 }

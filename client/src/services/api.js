@@ -9,7 +9,7 @@ const api = axios.create({
 
 // Attach token to every request
 api.interceptors.request.use(config => {
-  const token = localStorage.getItem('civictrust_token');
+  const token = localStorage.getItem('campusops_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -21,8 +21,8 @@ api.interceptors.response.use(
   response => response,
   error => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('civictrust_token');
-      localStorage.removeItem('civictrust_user');
+      localStorage.removeItem('campusops_token');
+      localStorage.removeItem('campusops_user');
       if (window.location.pathname !== '/auth') {
         window.location.href = '/auth';
       }

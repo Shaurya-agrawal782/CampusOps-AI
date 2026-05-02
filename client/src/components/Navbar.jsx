@@ -7,14 +7,18 @@ export default function Navbar() {
   const location = useLocation();
 
   const citizenLinks = [
-    { path: '/dashboard', label: 'Dashboard' },
-    { path: '/grievance/new', label: 'File Grievance' },
-    { path: '/track', label: 'Track Complaint' },
+    { path: '/dashboard',    label: 'Dashboard' },
+    { path: '/triage',       label: 'Report' },
+    { path: '/copilot',      label: 'AI Copilot' },
+    { path: '/grievance/new',label: 'Request' },
+    { path: '/track',        label: 'Track' },
+    { path: '/qr-zones',     label: 'QR Zones' },
   ];
 
   const adminLinks = [
     { path: '/admin', label: 'Dashboard' },
     { path: '/admin/analytics', label: 'Analytics' },
+    { path: '/qr-zones', label: 'QR Zones' },
   ];
 
   const links = isAdmin ? adminLinks : citizenLinks;
@@ -33,7 +37,7 @@ export default function Navbar() {
       <div className="navbar-inner">
         <Link to={isAdmin ? '/admin' : '/dashboard'} className="navbar-brand">
           <span className="material-symbols-outlined filled">account_balance</span>
-          <span>CivicTrust AI</span>
+          <span>CampusOps AI</span>
         </Link>
 
         <nav className="navbar-links">
@@ -64,9 +68,9 @@ export default function Navbar() {
               <div className="nav-dropdown animate-fade-in" style={{ width: '300px' }}>
                 <h4 style={{ margin: '0.5rem 1rem 1rem' }}>Notifications</h4>
                 {[
-                  { text: 'Complaint #GRV-1024 updated to In-Progress', time: '5m ago', type: 'info' },
-                  { text: 'New department assigned: Water Authority', time: '1h ago', type: 'success' },
-                  { text: 'Reminder: Complete feedback for #GRV-0988', time: '2h ago', type: 'warning' }
+                  { text: 'Ticket #REQ-1024 updated to In-Progress', time: '5m ago', type: 'info' },
+                  { text: 'New campus unit assigned: Facilities Management', time: '1h ago', type: 'success' },
+                  { text: 'Reminder: Complete feedback for #REQ-0988', time: '2h ago', type: 'warning' }
                 ].map((n, i) => (
                   <div key={i} className="nav-dropdown-item">
                     <p style={{ fontSize: '0.8125rem', margin: 0 }}>{n.text}</p>

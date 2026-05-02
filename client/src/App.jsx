@@ -10,6 +10,9 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminMap from './pages/AdminMap';
 import GrievanceDetail from './pages/GrievanceDetail';
 import Analytics from './pages/Analytics';
+import IssueTriage from './pages/IssueTriage';
+import ApplicationCopilot from './pages/ApplicationCopilot';
+import QRZones from './pages/QRZones';
 import './index.css';
 
 function ProtectedRoute({ children, roles }) {
@@ -31,10 +34,13 @@ function ProtectedRoute({ children, roles }) {
   return children;
 }
 
+import AIAssistant from './components/AIAssistant';
+
 function AppRoutes() {
   const { user } = useAuth();
 
   return (
+    <>
     <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/auth" element={user ? <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} replace /> : <Auth />} />
@@ -43,11 +49,23 @@ function AppRoutes() {
       <Route path="/dashboard" element={
         <ProtectedRoute roles={['citizen']}><Navbar /><CitizenDashboard /></ProtectedRoute>
       } />
+      <Route path="/triage" element={
+        <ProtectedRoute roles={['citizen']}><Navbar /><IssueTriage /></ProtectedRoute>
+      } />
+      <Route path="/copilot" element={
+        <ProtectedRoute roles={['citizen']}><Navbar /><ApplicationCopilot /></ProtectedRoute>
+      } />
       <Route path="/grievance/new" element={
         <ProtectedRoute roles={['citizen']}><Navbar /><NewGrievance /></ProtectedRoute>
       } />
+      <Route path="/report" element={
+        <ProtectedRoute roles={['citizen']}><Navbar /><IssueTriage /></ProtectedRoute>
+      } />
       <Route path="/track" element={
         <ProtectedRoute roles={['citizen']}><Navbar /><TrackComplaint /></ProtectedRoute>
+      } />
+      <Route path="/qr-zones" element={
+        <><Navbar /><QRZones /></>
       } />
 
       {/* Admin Routes */}
@@ -67,6 +85,8 @@ function AppRoutes() {
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    <AIAssistant context={user?.role === 'admin' ? 'admin' : 'general'} />
+    </>
   );
 }
 

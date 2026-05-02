@@ -5,7 +5,7 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('civictrust_token'));
+  const [token, setToken] = useState(localStorage.getItem('campusops_token'));
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -15,8 +15,8 @@ export function AuthProvider({ children }) {
           setUser(res.data.user);
         })
         .catch(() => {
-          localStorage.removeItem('civictrust_token');
-          localStorage.removeItem('civictrust_user');
+          localStorage.removeItem('campusops_token');
+          localStorage.removeItem('campusops_user');
           setToken(null);
           setUser(null);
         })
@@ -29,8 +29,8 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     const res = await authAPI.login({ email, password });
     const { token: newToken, user: newUser } = res.data;
-    localStorage.setItem('civictrust_token', newToken);
-    localStorage.setItem('civictrust_user', JSON.stringify(newUser));
+    localStorage.setItem('campusops_token', newToken);
+    localStorage.setItem('campusops_user', JSON.stringify(newUser));
     setToken(newToken);
     setUser(newUser);
     return newUser;
@@ -39,16 +39,16 @@ export function AuthProvider({ children }) {
   const register = async (name, email, password, phone) => {
     const res = await authAPI.register({ name, email, password, phone });
     const { token: newToken, user: newUser } = res.data;
-    localStorage.setItem('civictrust_token', newToken);
-    localStorage.setItem('civictrust_user', JSON.stringify(newUser));
+    localStorage.setItem('campusops_token', newToken);
+    localStorage.setItem('campusops_user', JSON.stringify(newUser));
     setToken(newToken);
     setUser(newUser);
     return newUser;
   };
 
   const logout = () => {
-    localStorage.removeItem('civictrust_token');
-    localStorage.removeItem('civictrust_user');
+    localStorage.removeItem('campusops_token');
+    localStorage.removeItem('campusops_user');
     setToken(null);
     setUser(null);
   };

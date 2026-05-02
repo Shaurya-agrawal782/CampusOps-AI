@@ -7,6 +7,33 @@ const timelineEntrySchema = new mongoose.Schema({
   updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, { _id: false });
 
+const CAMPUS_CATEGORIES = [
+  'Hostel', 'Canteen', 'Library', 'Lab / IT', 'Classroom',
+  'Transport', 'Exam Cell', 'Accounts / Fees', 'Maintenance',
+  'Security', 'Sports', 'Administration', 'Medical Room',
+  'Scholarship Cell', 'Other'
+];
+
+const CAMPUS_UNITS = [
+  'Hostel Warden / Hostel Maintenance',
+  'Canteen Committee / Food Services',
+  'Library Office',
+  'IT Support / Lab Assistant',
+  'Academic Block Maintenance',
+  'Transport Office',
+  'Examination Cell',
+  'Accounts Department',
+  'Campus Maintenance Team',
+  'Campus Security Office',
+  'Sports Department',
+  'Administrative Office',
+  'Campus Medical Room',
+  'Scholarship / Student Welfare Office',
+  'Student Support Desk',
+  // Legacy civic values kept so old seeded data doesn't break
+  'Public Works', 'Sanitation', 'Water Authority', 'Electricity Board', 'Municipal Safety'
+];
+
 const grievanceSchema = new mongoose.Schema({
   trackingId: {
     type: String,
@@ -15,7 +42,7 @@ const grievanceSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: [true, 'Grievance title is required'],
+    required: [true, 'Title is required'],
     trim: true
   },
   description: {
@@ -24,17 +51,16 @@ const grievanceSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['Public Infrastructure', 'Sanitation & Waste', 'Water Supply', 'Electricity', 'Public Safety'],
-    required: true
+    // Allow campus categories + old civic ones so seeded docs stay valid
+    default: 'Other'
   },
   department: {
     type: String,
-    enum: ['Public Works', 'Sanitation', 'Water Authority', 'Electricity Board', 'Municipal Safety'],
     default: null
   },
   priority: {
     type: String,
-    enum: ['high', 'medium', 'low'],
+    enum: ['low', 'medium', 'high', 'critical'],
     default: 'medium'
   },
   status: {
@@ -71,7 +97,18 @@ const grievanceSchema = new mongoose.Schema({
     default: null
   },
   aiClassification: {
-    suggestedDepartment: String,
+    // New campus fields
+    campusUnit: String,
+    issueType: {
+      type: String,
+      enum: ['Issue', 'Request', 'Emergency', 'Information'],
+      default: 'Issue'
+    },
+    suggestedAction: String,
+    studentMessage: String,
+    requiresAdminReview: { type: Boolean, default: false },
+    // Retained fields (used by frontend display)
+    suggestedDepartment: String,   // alias → campusUnit for backward compat
     confidence: Number,
     alternatives: [{
       department: String,
@@ -80,18 +117,24 @@ const grievanceSchema = new mongoose.Schema({
     summary: String,
     sentiment: {
       type: String,
-      enum: ['positive', 'neutral', 'negative', 'urgent/angry'],
-      default: 'neutral'
+      default: 'Calm'
     },
     detectedLanguage: {
       type: String,
       default: 'English'
     },
+    translatedTitle: String,
+    translatedDescription: String,
     isUrgent: {
       type: Boolean,
       default: false
     },
-    keyEntities: [String] // e.g., names of landmarks, specific people
+    verification: {
+      status: String,
+      reason: String,
+      confidence: Number
+    },
+    keyEntities: [String]
   },
   feedback: {
     rating: { type: Number, min: 1, max: 5 },
@@ -122,7 +165,7 @@ grievanceSchema.pre('save', function(next) {
   if (this.isNew) {
     this.timeline.push({
       status: 'submitted',
-      note: 'Grievance submitted by citizen',
+      note: 'Request submitted by student',
       timestamp: new Date()
     });
   }

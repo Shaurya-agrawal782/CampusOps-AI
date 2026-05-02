@@ -18,7 +18,7 @@ const solutionFlow = [
   { id: 'process', label: 'Process Continue', status: 'submitted', icon: 'settings' },
   { id: 'categorize', label: 'Categorization', status: 'in-review', icon: 'account_balance' },
   { id: 'priority', label: 'Priority Check', status: 'in-review', icon: 'low_priority' },
-  { id: 'assign', label: 'Department Assignment', status: 'in-review', icon: 'groups' },
+  { id: 'assign', label: 'Campus Unit Assignment', status: 'in-review', icon: 'groups' },
   { id: 'tracking', label: 'Tracking Active', status: 'in-progress', icon: 'search' },
   { id: 'work', label: 'Work In Progress', status: 'in-progress', icon: 'construction' },
   { id: 'solved', label: 'Resolution Check', status: 'resolved', icon: 'help' },
@@ -43,7 +43,7 @@ export default function TrackComplaint() {
       const res = await grievanceAPI.track(trackingId.trim().toUpperCase());
       setGrievance(res.data.grievance);
     } catch (err) {
-      setError(err.response?.data?.error || 'Grievance not found. Please check the tracking ID.');
+      setError(err.response?.data?.error || 'Request not found. Please check the tracking ID.');
     } finally {
       setLoading(false);
     }
@@ -56,9 +56,9 @@ export default function TrackComplaint() {
   return (
     <div className="container" style={{ padding: '2rem', maxWidth: '800px' }}>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>Track Your Complaint</h1>
+        <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>Track Your Request</h1>
         <p style={{ fontSize: '1.125rem', color: 'var(--on-surface-variant)', marginBottom: '2rem' }}>
-          Enter your grievance tracking ID to view the current status and resolution timeline.
+          Enter your request tracking ID to view the current status and resolution timeline.
         </p>
 
         {/* Search Form */}
@@ -173,7 +173,7 @@ export default function TrackComplaint() {
                       <span className="material-symbols-outlined">priority_high</span>
                       Escalated to Higher Authority
                     </p>
-                    <p style={{ fontSize: '0.8125rem', marginTop: '0.25rem' }}>This complaint has bypassed standard routing due to urgency or delay.</p>
+                    <p style={{ fontSize: '0.8125rem', marginTop: '0.25rem' }}>This request has bypassed standard routing due to urgency or delay.</p>
                   </motion.div>
                 )}
               </div>

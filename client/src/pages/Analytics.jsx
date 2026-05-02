@@ -58,9 +58,9 @@ export default function Analytics() {
         </div>
         <nav className="sidebar-nav">
           <Link to="/admin" className="sidebar-link"><span className="material-symbols-outlined">grid_view</span>Overview</Link>
-          <Link to="/admin" className="sidebar-link"><span className="material-symbols-outlined">description</span>Grievance Feed</Link>
+          <Link to="/admin" className="sidebar-link"><span className="material-symbols-outlined">description</span>Request Feed</Link>
           <Link to="/admin/analytics" className="sidebar-link active"><span className="material-symbols-outlined">analytics</span>Analytics</Link>
-          <a href="#" className="sidebar-link"><span className="material-symbols-outlined">alt_route</span>Departmental Routing</a>
+          <a href="#" className="sidebar-link"><span className="material-symbols-outlined">alt_route</span>Campus Unit Routing</a>
           <a href="#" className="sidebar-link"><span className="material-symbols-outlined">settings</span>Settings</a>
         </nav>
         <div className="sidebar-footer">
@@ -76,13 +76,13 @@ export default function Analytics() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div style={{ marginBottom: '2rem' }}>
             <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.02em' }}>Analytics</h1>
-            <p style={{ color: 'var(--on-surface-variant)' }}>Comprehensive overview of complaint data and departmental performance.</p>
+            <p style={{ color: 'var(--on-surface-variant)' }}>Comprehensive overview of ticket data and campus unit performance.</p>
           </div>
 
           {/* Top Stats */}
           <div className="grid grid-4" style={{ marginBottom: '2rem' }}>
             {[
-              { label: 'Total Complaints', value: stats?.total || 0, icon: 'inbox' },
+              { label: 'Total Tickets', value: stats?.total || 0, icon: 'inbox' },
               { label: 'Resolution Rate', value: `${stats?.resolutionRate || 0}%`, icon: 'trending_up' },
               { label: 'High Priority', value: stats?.highPriority || 0, icon: 'priority_high' },
               { label: 'AI Classified', value: stats?.aiClassified || 0, icon: 'smart_toy' },
@@ -184,9 +184,9 @@ export default function Analytics() {
             </div>
           </div>
 
-          {/* Department Performance */}
+          {/* Campus Unit Performance */}
           <div className="card" style={{ padding: '2rem' }}>
-            <h3 style={{ fontSize: '1.125rem', fontWeight: 700, marginBottom: '1.5rem' }}>Department Performance</h3>
+            <h3 style={{ fontSize: '1.125rem', fontWeight: 700, marginBottom: '1.5rem' }}>Campus Unit Performance</h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '1rem' }}>
               {stats?.departmentStats?.filter(d => d._id).map((dept, i) => {
                 const resRate = dept.total > 0 ? Math.round((dept.resolved / dept.total) * 100) : 0;
@@ -227,7 +227,7 @@ export default function Analytics() {
                 );
               })}
               {(!stats?.departmentStats || stats.departmentStats.filter(d => d._id).length === 0) && (
-                <p style={{ color: 'var(--on-surface-variant)', textAlign: 'center', padding: '2rem', gridColumn: '1 / -1' }}>No department data available</p>
+                <p style={{ color: 'var(--on-surface-variant)', textAlign: 'center', padding: '2rem', gridColumn: '1 / -1' }}>No campus unit data available</p>
               )}
             </div>
           </div>

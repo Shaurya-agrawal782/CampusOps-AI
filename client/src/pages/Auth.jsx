@@ -41,13 +41,13 @@ export default function Auth() {
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
             <span className="material-symbols-outlined filled" style={{ color: 'var(--primary)', fontSize: '2rem' }}>account_balance</span>
-            <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--primary)' }}>CivicTrust AI</span>
+            <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--primary)' }}>CampusOps AI</span>
           </Link>
           <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.5rem' }}>
             {isLogin ? 'Welcome Back' : 'Create Account'}
           </h1>
           <p style={{ fontSize: '0.875rem', color: 'var(--on-surface-variant)' }}>
-            {isLogin ? 'Sign in to access your grievance dashboard' : 'Register to start filing civic grievances'}
+            {isLogin ? 'Sign in to access your dashboard' : 'Register to start filing campus requests'}
           </p>
         </div>
 
@@ -162,9 +162,9 @@ export default function Auth() {
 
         {isLogin && (
           <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'var(--surface-container-low)', borderRadius: 'var(--radius-md)', fontSize: '0.75rem', color: 'var(--on-surface-variant)' }}>
-            <p style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Demo Credentials:</p>
-            <p>Admin: admin@civictrust.gov / admin123</p>
-            <p>Citizen: jane@example.com / citizen123</p>
+            <p style={{ fontWeight: 600, marginBottom: '0.5rem' }}>🎯 Demo Credentials:</p>
+            <p>Admin: admin@campusops.ai / Admin@123</p>
+            <p>Student: student@campusops.ai / Student@123</p>
           </div>
         )}
       </motion.div>
