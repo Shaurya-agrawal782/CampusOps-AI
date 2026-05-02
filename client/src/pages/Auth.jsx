@@ -24,7 +24,7 @@ export default function Auth() {
       }
       navigate(user.role === 'admin' ? '/admin' : '/dashboard');
     } catch (err) {
-      setError(err.response?.data?.error || 'Something went wrong. Please try again.');
+      setError(err.response?.data?.error || err.response?.data?.message || err.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
