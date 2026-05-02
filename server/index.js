@@ -26,7 +26,7 @@ app.use('/api/admin', adminRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'CivicTrust API is running' });
+  res.json({ status: 'ok', message: 'CampusOps AI API is running' });
 });
 
 // Connect to MongoDB and start server
@@ -36,7 +36,7 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('✅ Connected to MongoDB');
     app.listen(PORT, () => {
-      console.log(`🚀 CivicTrust API running on port ${PORT}`);
+      console.log(`🚀 CampusOps AI API running on port ${PORT}`);
     });
   })
   .catch(err => {
